@@ -11,3 +11,6 @@ tempo na investigação, até entender o que
 estava ocorrendo de errado. Entao mudei
  para uma URL PostgreSQL padrão 
 para garantir a funcionalidade.
+
+PDFs escaneados exigem conversao 
+para imagem antes do OCR.

@@ -3,6 +3,7 @@ import {
   Post,
   UploadedFile,
   UseInterceptors,
+  Param
 } from '@nestjs/common';
 
 import { FileInterceptor } from '@nestjs/platform-express';
@@ -36,4 +37,9 @@ export class DocumentsController {
     const userId = 'test-user'; // temporario, dps vem o auth
     return this.documentsService.create(userId, file);
   }
+
+  @Post(':id/process')
+  async process(@Param('id') id: string) {
+    return this.documentsService.process(id);
+}
 }
