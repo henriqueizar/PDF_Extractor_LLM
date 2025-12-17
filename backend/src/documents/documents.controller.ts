@@ -9,9 +9,16 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { extname } from 'path';
 
+import { DocumentsService } from './documents.service';
 
 @Controller('documents')
 export class DocumentsController {
+
+  constructor(
+    private readonly documentsService: DocumentsService, // 👈 AQUI
+  ) {}
+
+
   @Post('upload')
   @UseInterceptors(
     FileInterceptor('file', {
@@ -26,11 +33,7 @@ export class DocumentsController {
     }),
   )
   upload(@UploadedFile() file: Express.Multer.File) {
-    return {
-      originalName: file.originalname,
-      storedName: file.filename,
-      mimetype: file.mimetype,
-      size: file.size,
-    };
+    const userId = 'test-user'; // temporario, dps vem o auth
+    return this.documentsService.create(userId, file);
   }
 }
