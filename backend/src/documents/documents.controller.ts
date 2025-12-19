@@ -16,7 +16,7 @@ import { DocumentsService } from './documents.service';
 export class DocumentsController {
 
   constructor(
-    private readonly documentsService: DocumentsService, // 👈 AQUI
+    private readonly documentsService: DocumentsService, 
   ) {}
 
 
@@ -39,7 +39,8 @@ export class DocumentsController {
   }
 
   @Post(':id/process')
-  async process(@Param('id') id: string) {
-    return this.documentsService.process(id);
-}
+async process(@Param('id') id: string) {
+  this.documentsService.process(id); // sem await
+  return { message: 'Processing started' };
+  }
 }
