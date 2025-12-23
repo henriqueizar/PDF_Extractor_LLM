@@ -35,18 +35,22 @@ export class DocumentsController {
       }),
     }),
   )
-  upload(
+  async upload(
     @UploadedFile() file: Express.Multer.File,
     @Headers('user-id') userEmail: string
   ) {
     return this.documentsService.create(userEmail, file);
+
   }
 
   @Post(':id/process')
   async process(@Param('id') id: string) {
-    this.documentsService.process(id); // no await
+    this.documentsService
+      .process(id)
+      .catch(err => console.error('PROCESS ERROR:', err));
+    await this.documentsService.process(id);
     return { message: 'Processing started' };
-    }
+  }
 
   @Post(':id/ask')
   async ask(

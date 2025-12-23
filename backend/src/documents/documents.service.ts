@@ -35,11 +35,12 @@ export class DocumentsService {
   }
 
 async process(documentId: string) {
+  console.log('PROCESS START:', documentId);
   try {
     const document = await this.prisma.document.findUnique({
       where: { id: documentId },
     });
-
+    
     if (!document) {
       throw new Error('Document not found');
     }
