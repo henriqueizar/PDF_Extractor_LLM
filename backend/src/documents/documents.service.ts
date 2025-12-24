@@ -35,6 +35,7 @@ export class DocumentsService {
   }
 
 async process(documentId: string) {
+  console.log('PROCESS START:', documentId);
   try {
     const document = await this.prisma.document.findUnique({
       where: { id: documentId },
@@ -119,6 +120,43 @@ async ask(documentId: string, question: string) {
       role: 'QUESTION',
       question,
       answer,
+    },
+  });
+}
+async findOne(documentId: string) {
+  const document = await this.prisma.document.findUnique({
+    where: { id: documentId },
+  });
+
+  if (!document) {
+    throw new Error('Document not found');
+  }
+
+  const interactions = await this.prisma.llmInteraction.findMany({
+    where: { documentId },
+    orderBy: { createdAt: 'asc' },
+  });
+
+  return {
+    document,
+    interactions,
+  };
+}
+async findAllByUser(userEmail: string) {
+  const user = await this.prisma.user.findUnique({
+    where: { email: userEmail },
+  });
+
+  if (!user) return [];
+
+  return this.prisma.document.findMany({
+    where: { userId: user.id },
+    orderBy: { createdAt: 'desc' },
+    select: {
+      id: true,
+      originalName: true,
+      status: true,
+      createdAt: true,
     },
   });
 }

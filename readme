@@ -1,3 +1,15 @@
+## Architecture
+
+The application is split into two independent services:
+
+- Frontend: Next.js application responsible for authentication (Google OAuth), file upload UI, and document visualization.
+- Backend: NestJS API responsible for OCR processing, LLM interaction, and data persistence.
+
+During local development, the services run on different ports:
+
+- Frontend: http://localhost:3000
+- Backend: http://localhost:3001
+
 Utilizei PostgreSQL em container Docker para 
 simular um ambiente próximo de produção, 
 ao invés de usar SQLite puro, o que poderia
@@ -65,3 +77,4 @@ The backend receives the authenticated user identifier via a custom HTTP header 
 During the integration between the frontend authentication and the backend, a foreign key issue was identified when creating documents from authenticated users.
 
 To manage this, the backend implements an upsert operation when handling document uploads. This ensures that the user is automatically created on their first interaction with the system, and reused on subsequent requests.
+
