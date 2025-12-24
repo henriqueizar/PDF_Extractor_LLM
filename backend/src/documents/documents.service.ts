@@ -142,4 +142,23 @@ async findOne(documentId: string) {
     interactions,
   };
 }
+async findAllByUser(userEmail: string) {
+  const user = await this.prisma.user.findUnique({
+    where: { email: userEmail },
+  });
+
+  if (!user) return [];
+
+  return this.prisma.document.findMany({
+    where: { userId: user.id },
+    orderBy: { createdAt: 'desc' },
+    select: {
+      id: true,
+      originalName: true,
+      status: true,
+      createdAt: true,
+    },
+  });
+}
+
 }

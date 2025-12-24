@@ -35,21 +35,22 @@ export default function DocumentPage() {
   if (!data) return <p>Loading...</p>;
 
   const { document, interactions } = data;
-
+  console.log(document.filePath)
   return (
     <div style={{ maxWidth: 800, margin: 'auto', padding: 24 }}>
       <h1>{document.originalName}</h1>
 
       {/* Imagem */}
+      
       {document.originalName.endsWith('.png') && (
         <img
-          src={`http://localhost:3000/${document.filePath}`}
+          src={`http://localhost:3000/${document.filePath.replace(/\\/g, '/')}`}
           style={{ maxWidth: '100%', marginBottom: 24 }}
         />
       )}
 
       {/* Explicaçao */}
-      <h2>Explanation</h2>
+      <h2><strong>Explanation</strong></h2>
       {interactions
         .filter((i: any) => i.role === 'EXPLANATION')
         .map((i: any) => (
@@ -59,7 +60,7 @@ export default function DocumentPage() {
       <hr />
 
       {/* Chat pergunta e resposta */}
-      <h2>Chat</h2>
+      <h2><strong>Chat</strong></h2>
       {interactions
         .filter((i: any) => i.role === 'QUESTION')
         .map((i: any) => (

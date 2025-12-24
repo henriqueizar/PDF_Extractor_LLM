@@ -1,6 +1,7 @@
 'use client';
 
 import { useSession } from 'next-auth/react';
+import Link from 'next/link';
 import { useState } from 'react';
 
 export default function UploadPage() {
@@ -8,6 +9,8 @@ export default function UploadPage() {
   const [file, setFile] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
+
+  const [docId, setdocId] = useState<string | null>(null);
 
   // next-auth loading
   if (status === 'loading') {
@@ -51,6 +54,8 @@ export default function UploadPage() {
 
     const document = await uploadRes.json();
 
+    setdocId(document.id);
+
     const processRes = await fetch(`http://localhost:3000/documents/${document.id}/process`, {
       method: 'POST',
     });
@@ -92,6 +97,11 @@ function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
   <button type="submit" disabled={loading}>
     {loading ? 'Uploading...' : 'Upload'}
   </button>
+  {docId && !loading &&(
+      <Link href={`/documents/${docId}`}>
+        <button type="button" style={{ marginLeft: '10px' }}>Analyze (LLM)</button>
+      </Link>
+  )}
 </form>
 
       

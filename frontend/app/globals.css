@@ -1,3 +1,4 @@
+
 @import "tailwindcss";
 
 :root {
@@ -19,14 +20,42 @@
   }
 }
 
+.upload-button {
+
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+
+  
+  display: inline-block;
+  text-align: center;
+  background-color: #f0f0f0; 
+  color: black;
+  line-height: normal;
+  user-select: none;
+}
+
+.upload-button:hover {
+  background-color: #e5e5e5;
+  border-color: #bbb;
+}
+
+.upload-button:active {
+  background-color: #dcdcdc;
+}
 body {
   background: var(--background);
+  font-size: larger;
   color: var(--foreground);
-  font-family: Helvetica, sans-serif;
+  font-family: monospace;
   background: #f7f7f7;
   color: #111;
 }
-
+h2 {
+  font-weight: 600;
+  margin-bottom: 16px;
+}
 button {
   padding: 8px 12px;
   border-radius: 6px;

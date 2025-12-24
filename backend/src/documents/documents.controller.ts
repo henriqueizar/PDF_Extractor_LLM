@@ -67,4 +67,8 @@ async findOne(@Param('id') id: string) {
   console.log('GET DOCUMENT:', id);
   return this.documentsService.findOne(id);
 }
+@Get()
+async findAll(@Headers('user-id') userEmail: string) {
+  return this.documentsService.findAllByUser(userEmail);
+}
 }
