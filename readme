@@ -21,8 +21,8 @@ This README was written with the help of ChatGPT and manually reviewed and adapt
 
 2. Environment variables
 - Backend (backend/.env) --> [create .env file]
-DATABASE_URL = postgresql://postgres:postgres@localhost:5432/paggo
-OPENAI_API_KEY = your_openai_api_key
+DATABASE_URL= "postgresql://paggo:paggo@localhost:5432/paggo_db"
+OPENAI_API_KEY= secret_here
 
 NOTE: If OPENAI_API_KEY is not set, the system uses simulated LLM responses.
 
